@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= typeof title !=='undefined' ? title : 'attend.io' %>
+    </title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="nav-logo">
+                    <img src="/images/logo.png" alt="attend.io logo">
+                    <span>attend.io</span>
+                </div>
+                <div class="nav-links">
+                    <% if (typeof email !=='undefined' && email) { %>
+                        <a href="/?email=<%= email %><%= typeof role !== 'undefined' ? '&role=' + role : '' %>"><i
+                                class="fa-solid fa-house"></i> Home</a>
+                        <% } else { %>
+                            <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                            <% } %>
+
+                                <% if (typeof email==='undefined' || !email) { %>
+                                    <a href="/signup"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+                                    <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                                    <% } %>
+
+                                        <% if (typeof email !=='undefined' && email) { %>
+                                            <a href="/profile/<%= email %>?role=<%= role %>"><i
+                                                    class="fa-solid fa-id-card"></i> Profile</a>
+                                            <% if (typeof role !=='undefined' && role==='teacher' ) { %>
+                                                <a href="/mark-attendance?email=<%= email %>&role=teacher"><i
+                                                        class="fa-solid fa-clipboard-check"></i> Mark Attendance</a>
+                                                <% } %>
+                                                    <% if (typeof role !=='undefined' && role==='student' ) { %>
+                                                        <a href="/view-attendance?email=<%= email %>&role=student"><i
+                                                                class="fa-solid fa-chart-line"></i> View Attendance</a>
+                                                        <% } %>
+                                                            <span class="nav-welcome"><i
+                                                                    class="fa-solid fa-circle-user"></i> Welcome
+                                                                <strong>
+                                                                    <%= fullName || 'User' %>
+                                                                </strong></span>
+                                                            <a href="/" class="logout-btn"><i
+                                                                    class="fa-solid fa-right-from-bracket"></i>
+                                                                Logout</a>
+                                                            <% } %>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>

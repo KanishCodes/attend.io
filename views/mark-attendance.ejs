@@ -1,0 +1,27 @@
+<%- include("partials/header", { title: "Mark Attendance" }) %>
+
+  <div class="card">
+    <h1><i class="fa-solid fa-clipboard-user"></i> Teacher Portal</h1>
+    <div class="mt-1">
+      <a href="/?email=<%= email %>&role=<%= role %>" class="btn-secondary no-decoration"
+        style="padding: 0.5rem 1rem; font-size: 0.9rem; display: inline-block; margin-bottom: 1rem;">
+        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+    <div class="text-center" style="padding: 3rem 1rem;">
+      <i class="fa-solid fa-screwdriver-wrench"
+        style="font-size: 4rem; color: var(--accent); margin-bottom: 1.5rem;"></i>
+      <h2 style="font-size: 2rem; margin-bottom: 1rem;">Feature Under Construction</h2>
+      <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 400px; margin: 0 auto 2rem;">
+        The interactive attendance marking system is being optimized for reliability and scale.
+      </p>
+      <div
+        style="background: rgba(219, 244, 140, 0.1); border: 2px dashed var(--accent); padding: 1.5rem; display: inline-block;">
+        <p style="font-weight: 600; color: var(--secondary); margin: 0;">
+          <i class="fa-solid fa-clock-rotate-left"></i> This module will be available in future evaluations.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <%- include("partials/footer") %>

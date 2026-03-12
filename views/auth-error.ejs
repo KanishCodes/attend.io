@@ -1,0 +1,28 @@
+<%- include("partials/header", { title: "Authentication Portal" }) %>
+
+  <div class="card max-w-500 mt-2 text-center">
+    <h1><i class="fa-solid fa-circle-info accent-text"></i> Authentication</h1>
+
+    <div class="mt-2">
+      <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+        <%= message %>
+      </p>
+
+      <div class="flex-gap">
+        <a href="/" class="flex-1 no-decoration">
+          <button class="btn-secondary">
+            <i class="fa-solid fa-house"></i> Home
+          </button>
+        </a>
+        <% if (typeof linkUrl !=='undefined' && linkUrl) { %>
+          <a href="<%= linkUrl %>" class="flex-1 no-decoration">
+            <button>
+              <%= typeof linkText !=='undefined' ? linkText : 'Continue' %> <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </a>
+          <% } %>
+      </div>
+    </div>
+  </div>
+
+  <%- include("partials/footer") %>

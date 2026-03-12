@@ -1,0 +1,81 @@
+<%- include("partials/header", { title: "Dashboard" }) %>
+
+  <div class="card text-center">
+    <h1>AttendEase <span style="font-size: 1.5rem; opacity: 0.6; font-weight: 400;"> - Online Attendance Portal</span>
+    </h1>
+
+    <% if (typeof email !=='undefined' && email) { %>
+      <div class="mt-2 text-center">
+        <h2>Welcome back, <span class="accent-text">
+            <%= typeof fullName !=='undefined' ? fullName : 'User' %>
+          </span>!</h2>
+        <p style="font-size: 1.1rem; font-weight: 600;">Your portal is active. Select an action below to proceed.</p>
+
+        <div class="portal-actions">
+          <% if (typeof role !=='undefined' && role==='teacher' ) { %>
+            <a href="/mark-attendance?email=<%= email %>&role=teacher" class="action-btn btn-teacher">
+              <i class="fa-solid fa-calendar-check"></i>
+              Mark Attendance
+            </a>
+            <% } %>
+
+              <% if (typeof role !=='undefined' && role==='student' ) { %>
+                <a href="/view-attendance?email=<%= email %>&role=student" class="action-btn btn-student">
+                  <i class="fa-solid fa-chart-line"></i>
+                  View Reports
+                </a>
+                <% } %>
+        </div>
+      </div>
+      <% } else { %>
+        <div class="mt-2 text-center">
+          <p>Welcome to our next-generation attendance management system. Designed to streamline academic workflows,
+            this portal provides a sophisticated, high-contrast interface for real-time tracking and reporting across
+            institutions.</p>
+          <div class="flex-gap mt-2">
+            <a href="/signup" class="flex-1 no-decoration"><button class="btn-secondary">Create Account</button></a>
+            <a href="/login" class="flex-1 no-decoration"><button>Sign In</button></a>
+          </div>
+        </div>
+        <% } %>
+  </div>
+
+  <!-- Additional Informational Sections -->
+  <div class="flex-gap mt-2">
+    <div class="card flex-1">
+      <h3 class="accent-text"><i class="fa-solid fa-microchip"></i> Modern Architecture</h3>
+      <p>Built with Express.js and EJS, the portal features a robust design with centralized error handling and
+        resilient file-based storage.</p>
+    </div>
+    <div class="card flex-1">
+      <h3 class="accent-text"><i class="fa-solid fa-shield-halved"></i> Role-Based Access</h3>
+      <p>Customized portals for both Teachers and Students ensure that data remains secure and relevant to your academic
+        standing.</p>
+    </div>
+  </div>
+
+  <div class="card mt-2">
+    <h2 class="text-center">How It Works</h2>
+    <div class="flex-gap mt-1" style="flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 250px; padding: 1rem;">
+        <h4><span class="accent-text">01.</span> Account Setup</h4>
+        <p>Sign up as a Student or Teacher and provide your academic details to personalize your portal experience.</p>
+      </div>
+      <div style="flex: 1; min-width: 250px; padding: 1rem;">
+        <h4><span class="accent-text">02.</span> Identity Verification</h4>
+        <p>The system uses your University Email and First/Last name for all identification, ensuring high professional
+          standards.</p>
+      </div>
+      <div style="flex: 1; min-width: 250px; padding: 1rem;">
+        <h4><span class="accent-text">03.</span> Track Progress</h4>
+        <p>Teachers can mark real-time attendance, while students gain immediate access to their session reports and
+          history.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-2 mb-2" style="opacity: 0.7; font-size: 0.9rem;">
+    <p><strong>attend.io v1.0</strong><br>&copy; 2026 attend.io Solutions</p>
+  </div>
+
+  <%- include("partials/footer") %>

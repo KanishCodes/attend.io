@@ -1,0 +1,76 @@
+<%- include("partials/header", { title: "My Profile" }) %>
+
+  <div class="card">
+    <h1><i class="fa-solid fa-id-card accent-text"></i> My Profile</h1>
+    <p>Your official portal details and academic information.</p>
+
+    <div class="profile-info">
+      <div class="info-item">
+        <label>Full Name</label>
+        <span>
+          <%= userDetails.firstName %>
+            <%= userDetails.lastName %>
+        </span>
+      </div>
+      <div class="info-item">
+        <label>Email Address</label>
+        <span>
+          <%= email %>
+        </span>
+      </div>
+      <div class="info-item">
+        <label>Role</label>
+        <span style="text-transform: capitalize;">
+          <%= role %>
+        </span>
+      </div>
+
+      <% if (role==='student' ) { %>
+        <div class="info-item">
+          <label>Batch</label>
+          <span>
+            <%= userDetails.batch || 'Not set' %>
+          </span>
+        </div>
+        <div class="info-item">
+          <label>Semester</label>
+          <span>
+            <%= userDetails.semester || 'Not set' %>
+          </span>
+        </div>
+        <div class="info-item">
+          <label>Program</label>
+          <span>
+            <%= userDetails.program || 'Not set' %>
+          </span>
+        </div>
+        <div class="info-item">
+          <label>Group</label>
+          <span>
+            <%= userDetails.group || 'Not set' %>
+          </span>
+        </div>
+        <% } else if (role==='teacher' ) { %>
+          <div class="info-item">
+            <label>Department</label>
+            <span>
+              <%= userDetails.department || 'Not set' %>
+            </span>
+          </div>
+          <div class="info-item">
+            <label>Designation</label>
+            <span>
+              <%= userDetails.designation || 'Not set' %>
+            </span>
+          </div>
+          <% } %>
+    </div>
+
+    <div class="mt-2 text-center">
+      <a href="/?email=<%= email %>&role=<%= role %>" class="no-decoration">
+        <button class="btn-secondary" style="width: auto; padding: 0.8rem 2rem;">Return to Dashboard</button>
+      </a>
+    </div>
+  </div>
+
+  <%- include("partials/footer") %>

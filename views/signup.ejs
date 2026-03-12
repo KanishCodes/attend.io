@@ -1,0 +1,104 @@
+<%- include("partials/header", { title: "Create Account" }) %>
+
+  <div class="card max-w-500 mt-2 text-center">
+    <h1><i class="fa-solid fa-user-plus accent-text" style="padding: 0.5rem;"></i><br>Sign Up</h1>
+    <p style="font-weight: 500;">Join our portal to start tracking attendance.</p>
+
+    <form action="/signup" method="POST" class="mt-1" onsubmit="return validatePasswords()">
+      <div class="flex-gap">
+        <div class="form-group flex-1">
+          <label for="firstName">First Name<span class="required-star">*</span></label>
+          <input type="text" id="firstName" name="firstName" placeholder="John" required>
+        </div>
+        <div class="form-group flex-1">
+          <label for="lastName">Last Name<span class="required-star">*</span></label>
+          <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address<span class="required-star">*</span></label>
+        <input type="email" id="email" name="email" placeholder="john.doe@university.edu" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Create Password<span class="required-star">*</span></label>
+        <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password<span class="required-star">*</span></label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required>
+      </div>
+      <div class="form-group">
+        <label for="role">User Role<span class="required-star">*</span></label>
+        <select id="role" name="role" required onchange="toggleFields()">
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+        </select>
+      </div>
+
+      <!-- Student Fields -->
+      <div id="student-fields">
+        <div class="form-group">
+          <label for="batch">Batch</label>
+          <input type="text" name="batch" placeholder="e.g. 2022-2026">
+        </div>
+        <div class="form-group">
+          <label for="semester">Semester</label>
+          <input type="text" name="semester" placeholder="e.g. 4th">
+        </div>
+        <div class="form-group">
+          <label for="program">Program</label>
+          <input type="text" name="program" placeholder="e.g. B.Tech CSE">
+        </div>
+        <div class="form-group">
+          <label for="group">Group</label>
+          <input type="text" name="group" placeholder="e.g. G1">
+        </div>
+      </div>
+
+      <!-- Teacher Fields -->
+      <div id="teacher-fields" style="display: none;">
+        <div class="form-group">
+          <label for="department">Department</label>
+          <input type="text" name="department" placeholder="e.g. Computer Science">
+        </div>
+        <div class="form-group">
+          <label for="designation">Designation</label>
+          <input type="text" name="designation" placeholder="e.g. Assistant Professor">
+        </div>
+      </div>
+
+      <button type="submit">Create Account <i class="fa-solid fa-check"></i></button>
+    </form>
+
+    <script>
+      function validatePasswords() {
+        const pass = document.getElementById('password').value;
+        const confirm = document.getElementById('confirmPassword').value;
+        if (pass !== confirm) {
+          alert("Passwords do not match!");
+          return false;
+        }
+        return true;
+      }
+
+      function toggleFields() {
+        const role = document.getElementById('role').value;
+        const studentFields = document.getElementById('student-fields');
+        const teacherFields = document.getElementById('teacher-fields');
+
+        if (role === 'student') {
+          studentFields.style.display = 'block';
+          teacherFields.style.display = 'none';
+        } else {
+          studentFields.style.display = 'none';
+          teacherFields.style.display = 'block';
+        }
+      }
+    </script>
+
+    <p style="text-align: center; margin-top: 1.5rem;">
+      Already have an account? <a href="/login" class="accent-text">Login here</a>
+    </p>
+  </div>
+
+  <%- include("partials/footer") %>
