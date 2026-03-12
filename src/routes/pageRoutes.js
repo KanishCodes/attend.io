@@ -8,6 +8,8 @@ router.get('/signup', servePage('signup'));
 router.get('/login', servePage('login'));
 router.get('/mark-attendance', servePage('mark-attendance'));
 router.get('/view-attendance', servePage('view-attendance'));
+router.get('/about', servePage('about'));
+router.get('/contact', servePage('contact'));
 
 // Profile Route (Using Route Parameter :email)
 router.get('/profile/:email', (req, res) => {

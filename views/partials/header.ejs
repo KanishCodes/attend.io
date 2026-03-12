@@ -32,8 +32,10 @@
                         <a href="/?email=<%= email %><%= typeof role !== 'undefined' ? '&role=' + role : '' %>"><i
                                 class="fa-solid fa-house"></i> Home</a>
                         <% } else { %>
-                            <a href="/"><i class="fa-solid fa-house"></i> Home</a>
-                            <% } %>
+                             <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                             <a href="/about"><i class="fa-solid fa-info-circle"></i> About Us</a>
+                             <a href="/contact"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+                             <% } %>
 
                                 <% if (typeof email==='undefined' || !email) { %>
                                     <a href="/signup"><i class="fa-solid fa-user-plus"></i> Sign Up</a>

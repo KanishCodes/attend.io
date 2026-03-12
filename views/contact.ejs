@@ -1,0 +1,66 @@
+<%- include("partials/header", { title: "Contact Us" }) %>
+
+<div class="card">
+    <h1 class="accent-text text-center">Contact Us</h1>
+    <p class="text-center mt-1">Have questions or need support? Our team is here to help you get the most out of attend.io.</p>
+    
+    <div class="flex-gap mt-2">
+        <div style="flex: 1; min-width: 300px;">
+            <h3>Get in Touch</h3>
+            <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                <li style="margin-bottom: 1rem;">
+                    <i class="fa-solid fa-envelope accent-text" style="width: 25px;"></i> 
+                    <strong>Email:</strong> support@attend.io
+                </li>
+                <li style="margin-bottom: 1rem;">
+                    <i class="fa-solid fa-phone accent-text" style="width: 25px;"></i> 
+                    <strong>Phone:</strong> +91 (555) 123-4567
+                </li>
+                <li style="margin-bottom: 1rem;">
+                    <i class="fa-solid fa-location-dot accent-text" style="width: 25px;"></i> 
+                    <strong>Location:</strong> University Campus, Block A, Innovation Center
+                </li>
+            </ul>
+            
+            <div class="mt-2">
+                <h4>Hours of Operation</h4>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 2:00 PM</p>
+            </div>
+        </div>
+
+        <div style="flex: 1.5; min-width: 300px;">
+            <div class="card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                <form id="contactForm" onsubmit="event.preventDefault(); alert('Message sent successfully! (Mockup)');">
+                    <div class="input-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">University Email</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" style="width: 100%; padding: 0.8rem; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 8px;">
+                            <option value="support">Technical Support</option>
+                            <option value="billing">Account Issue</option>
+                            <option value="feedback">Feedback & Suggestions</option>
+                            <option value="General">General Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="4" placeholder="How can we help?" style="width: 100%; padding: 0.8rem; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 8px; resize: vertical;" required></textarea>
+                    </div>
+                    <button type="submit" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-2 mb-2">
+    <a href="/" class="no-decoration"><button class="btn-secondary">Back to Home</button></a>
+</div>
+
+<%- include("partials/footer") %>
