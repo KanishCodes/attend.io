@@ -30,30 +30,23 @@
 
         <div style="flex: 1.5; min-width: 300px;">
             <div class="card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
-                <form id="contactForm" onsubmit="event.preventDefault(); alert('Message sent successfully! (Mockup)');">
-                    <div class="input-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="email">University Email</label>
-                        <input type="email" id="email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="subject">Subject</label>
-                        <select id="subject" style="width: 100%; padding: 0.8rem; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 8px;">
-                            <option value="support">Technical Support</option>
-                            <option value="billing">Account Issue</option>
-                            <option value="feedback">Feedback & Suggestions</option>
-                            <option value="General">General Inquiry</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" rows="4" placeholder="How can we help?" style="width: 100%; padding: 0.8rem; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 8px; resize: vertical;" required></textarea>
-                    </div>
-                    <button type="submit" style="width: 100%;">Send Message</button>
-                </form>
+                <h3 class="accent-text">Frequently Asked Questions</h3>
+                <div class="mt-1">
+                    <p><strong>How do I reset my password?</strong><br>
+                    Please contact the University IT Helpdesk at help@univ.edu with your Student ID.</p>
+                </div>
+                <div class="mt-1">
+                    <p><strong>Can I change my role once signed up?</strong><br>
+                    Roles are locked after signup for security. Email the admin if you picked the wrong role.</p>
+                </div>
+                <div class="mt-1">
+                    <p><strong>System Downtime?</strong><br>
+                    Scheduled maintenance occurs every Sunday from 2 AM to 4 AM IST.</p>
+                </div>
+                
+                <div class="mt-2 text-center" style="padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <p><i class="fa-solid fa-headset accent-text"></i> Support is available 24/7 for urgent campus-wide issues.</p>
+                </div>
             </div>
         </div>
     </div>
