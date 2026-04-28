@@ -1,0 +1,67 @@
+<%- include("partials/header", { title: "Manage Subjects" }) %>
+
+<div class="card max-w-800 mt-2">
+    <h1><i class="fa-solid fa-book-bookmark accent-text"></i> Manage Your Subjects</h1>
+    <p>Define the subjects and groups you teach to enable attendance marking.</p>
+
+    <div class="flex-gap mt-2" style="align-items: flex-start;">
+        <!-- Add Subject Form -->
+        <div class="flex-1" style="background: #f9f9f9; padding: 1.5rem; border-radius: 12px; border: 1px solid #eee;">
+            <h3><i class="fa-solid fa-plus"></i> Add New Subject</h3>
+            <form action="/subjects" method="POST" class="mt-1">
+                <div class="form-group">
+                    <label for="name">Subject Name</label>
+                    <input type="text" id="name" name="name" placeholder="e.g. Node.js" required>
+                </div>
+                <div class="form-group">
+                    <label for="code">Subject Code</label>
+                    <input type="text" id="code" name="code" placeholder="e.g. CS-401" required>
+                </div>
+                <div class="form-group">
+                    <label for="group">Target Group</label>
+                    <select name="group" id="group" required>
+                        <option value="G-14">G-14</option>
+                        <option value="G-15">G-15</option>
+                        <option value="G-16">G-16</option>
+                    </select>
+                </div>
+                <button type="submit" style="width: 100%;">Create Class <i class="fa-solid fa-save"></i></button>
+            </form>
+        </div>
+
+        <!-- Current Subjects List -->
+        <div class="flex-2">
+            <h3><i class="fa-solid fa-list-ul"></i> Your Current Classes</h3>
+            <div class="mt-1">
+                <% if (subjects.length === 0) { %>
+                    <div style="text-align: center; padding: 2rem; color: #888;">
+                        <i class="fa-solid fa-folder-open" style="font-size: 2rem;"></i>
+                        <p>No subjects added yet.</p>
+                    </div>
+                <% } else { %>
+                    <% subjects.forEach(subject => { %>
+                        <div class="subject-item" style="display: flex; justify-content: space-between; align-items: center; background: #fff; border: 1px solid #ddd; margin-bottom: 0.8rem; padding: 1rem; border-radius: 10px;">
+                            <div>
+                                <h4 style="margin: 0; color: var(--primary-color);"><%= subject.name %> (<%= subject.code %>)</h4>
+                                <span style="font-size: 0.9rem; color: #666;">Group: <strong><%= subject.group %></strong></span>
+                            </div>
+                            <form action="/subjects/delete/<%= subject._id %>" method="POST" onsubmit="return confirm('Remove this subject?')">
+                                <button type="submit" style="background: #ffeded; color: #d9534f; padding: 0.5rem 0.8rem; border: 1px solid #ffcccc; font-size: 0.8rem;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2" style="text-align: center;">
+        <a href="/mark-attendance" class="btn" style="text-decoration: none; display: inline-block;">
+            Go to Mark Attendance <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+
+<%- include("partials/footer") %>

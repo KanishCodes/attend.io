@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= typeof title !=='undefined' ? title : 'attend.io' %>
-    </title>
+    <title><%= typeof title !=='undefined' ? title : 'attend.io' %></title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +13,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/images/logo.png">
 </head>
 
 <body>
@@ -28,40 +24,30 @@
                     <span>attend.io</span>
                 </div>
                 <div class="nav-links">
-                    <% if (typeof email !=='undefined' && email) { %>
-                        <a href="/?email=<%= email %><%= typeof role !== 'undefined' ? '&role=' + role : '' %>"><i
-                                class="fa-solid fa-house"></i> Home</a>
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+
+                    <% if (typeof user !== 'undefined' && user._id) { %>
+                        <!-- Links for Logged In Users -->
+                        <a href="/profile"><i class="fa-solid fa-id-card"></i> Profile</a>
+                        
+                        <% if (user.role === 'teacher') { %>
+                            <a href="/manage-subjects"><i class="fa-solid fa-book"></i> Subjects</a>
+                            <a href="/mark-attendance"><i class="fa-solid fa-clipboard-check"></i> Mark Attendance</a>
                         <% } else { %>
-                             <a href="/"><i class="fa-solid fa-house"></i> Home</a>
-                             <a href="/about"><i class="fa-solid fa-info-circle"></i> About Us</a>
-                             <a href="/contact"><i class="fa-solid fa-envelope"></i> Contact Us</a>
-                             <% } %>
+                            <a href="/view-attendance"><i class="fa-solid fa-chart-line"></i> My Attendance</a>
+                        <% } %>
 
-                                <% if (typeof email==='undefined' || !email) { %>
-                                    <a href="/signup"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
-                                    <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-                                    <% } %>
+                        <span class="nav-welcome">
+                            <i class="fa-solid fa-circle-user"></i> Welcome <strong><%= user.firstName %></strong>
+                        </span>
+                        <a href="/logout" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
 
-                                        <% if (typeof email !=='undefined' && email) { %>
-                                            <a href="/profile/<%= email %>?role=<%= role %>"><i
-                                                    class="fa-solid fa-id-card"></i> Profile</a>
-                                            <% if (typeof role !=='undefined' && role==='teacher' ) { %>
-                                                <a href="/mark-attendance?email=<%= email %>&role=teacher"><i
-                                                        class="fa-solid fa-clipboard-check"></i> Mark Attendance</a>
-                                                <% } %>
-                                                    <% if (typeof role !=='undefined' && role==='student' ) { %>
-                                                        <a href="/view-attendance?email=<%= email %>&role=student"><i
-                                                                class="fa-solid fa-chart-line"></i> View Attendance</a>
-                                                        <% } %>
-                                                            <span class="nav-welcome"><i
-                                                                    class="fa-solid fa-circle-user"></i> Welcome
-                                                                <strong>
-                                                                    <%= fullName || 'User' %>
-                                                                </strong></span>
-                                                            <a href="/" class="logout-btn"><i
-                                                                    class="fa-solid fa-right-from-bracket"></i>
-                                                                Logout</a>
-                                                            <% } %>
+                    <% } else { %>
+                        <!-- Links for Guests -->
+                        <a href="/about"><i class="fa-solid fa-info-circle"></i> About</a>
+                        <a href="/signup"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+                        <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                    <% } %>
                 </div>
             </nav>
         </div>

@@ -1,27 +1,86 @@
 <%- include("partials/header", { title: "Mark Attendance" }) %>
 
-  <div class="card">
-    <h1><i class="fa-solid fa-clipboard-user"></i> Teacher Portal</h1>
-    <div class="mt-1">
-      <a href="/?email=<%= email %>&role=<%= role %>" class="btn-secondary no-decoration"
-        style="padding: 0.5rem 1rem; font-size: 0.9rem; display: inline-block; margin-bottom: 1rem;">
-        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
-      </a>
-    </div>
-    <div class="text-center" style="padding: 3rem 1rem;">
-      <i class="fa-solid fa-screwdriver-wrench"
-        style="font-size: 4rem; color: var(--accent); margin-bottom: 1.5rem;"></i>
-      <h2 style="font-size: 2rem; margin-bottom: 1rem;">Feature Under Construction</h2>
-      <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 400px; margin: 0 auto 2rem;">
-        The interactive attendance marking system is being optimized for reliability and scale.
-      </p>
-      <div
-        style="background: rgba(219, 244, 140, 0.1); border: 2px dashed var(--accent); padding: 1.5rem; display: inline-block;">
-        <p style="font-weight: 600; color: var(--secondary); margin: 0;">
-          <i class="fa-solid fa-clock-rotate-left"></i> This module will be available in future evaluations.
-        </p>
-      </div>
-    </div>
-  </div>
+<div class="card max-w-800 mt-2">
+    <h1><i class="fa-solid fa-clipboard-user accent-text"></i> Mark Attendance</h1>
+    <p>Select a subject and group to start marking attendance for students.</p>
 
-  <%- include("partials/footer") %>
+    <!-- Subject Selection Form -->
+    <div class="mt-2" style="background: #f4f7f6; padding: 1.5rem; border-radius: 12px; border: 1px solid #e0e0e0;">
+        <form action="/mark-attendance" method="GET" style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;">
+            <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                <label for="subjectId">Select Subject & Group</label>
+                <select name="subjectId" id="subjectId" required onchange="this.form.submit()">
+                    <option value="">-- Choose a Class --</option>
+                    <% subjects.forEach(subject => { %>
+                        <option value="<%= subject._id %>" <%= selectedSubject && selectedSubject._id.toString() === subject._id.toString() ? 'selected' : '' %>>
+                            <%= subject.name %> (<%= subject.code %>) - <%= subject.group %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+            <a href="/manage-subjects" class="btn" style="background: #fff; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 0.6rem 1rem; text-decoration: none; border-radius: 8px;">
+                <i class="fa-solid fa-plus"></i> Add New Class
+            </a>
+        </form>
+    </div>
+
+    <% if (selectedSubject) { %>
+        <form action="/attendance" method="POST" class="mt-2">
+            <input type="hidden" name="subjectId" value="<%= selectedSubject._id %>">
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3>Marking for: <span class="accent-text"><%= selectedSubject.name %> (<%= selectedSubject.group %>)</span></h3>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="date">Class Date:</label>
+                    <input type="date" id="date" name="date" value="<%= new Date().toISOString().split('T')[0] %>" required>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                            <th style="padding: 1rem; text-align: left;">Student Name</th>
+                            <th style="padding: 1rem; text-align: center;">Present</th>
+                            <th style="padding: 1rem; text-align: center;">Absent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (students.length === 0) { %>
+                            <tr>
+                                <td colspan="3" style="padding: 2rem; text-align: center; color: #888;">
+                                    No students found in <%= selectedSubject.group %>
+                                </td>
+                            </tr>
+                        <% } else { %>
+                            <% students.forEach((student, index) => { %>
+                                <tr style="border-bottom: 1px solid #eee;">
+                                    <td style="padding: 1rem;">
+                                        <strong><%= student.firstName %> <%= student.lastName %></strong>
+                                        <div style="font-size: 0.8rem; color: #666;"><%= student.email %></div>
+                                    </td>
+                                    <td style="padding: 1rem; text-align: center;">
+                                        <input type="radio" name="attendanceData[<%= student._id %>]" value="Present" required checked>
+                                    </td>
+                                    <td style="padding: 1rem; text-align: center;">
+                                        <input type="radio" name="attendanceData[<%= student._id %>]" value="Absent" required>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+            <% if (students.length > 0) { %>
+                <div class="mt-2" style="text-align: right;">
+                    <button type="submit" class="btn-success">
+                        Save Attendance Records <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </button>
+                </div>
+            <% } %>
+        </form>
+    <% } %>
+</div>
+
+<%- include("partials/footer") %>

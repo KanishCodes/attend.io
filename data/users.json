@@ -1,23 +1,30 @@
 [
   {
-    "username": "testuser@gmail.com",
-    "password": "password123",
-    "role": "teacher"
-  },
-  {
-    "password": "kanish",
-    "role": "student"
-  },
-  {
-    "firstName": "KANISH",
-    "lastName": "Mahajan",
-    "email": "kissan@gmail.com",
-    "password": "1234",
+    "firstName": "Zohran",
+    "lastName": "Mamdani",
+    "email": "zohranmamdani@faculty.com",
+    "password": "zohran123",
     "role": "teacher",
-    "batch": "",
-    "semester": "",
-    "program": "",
-    "group": "",
+    "department": "CSE",
+    "designation": "Assistant Professor"
+  },
+  {
+    "firstName": "Harley",
+    "lastName": "Quinn",
+    "email": "harleyquinn@student.com",
+    "password": "harley123",
+    "role": "student",
+    "batch": "2024-2028",
+    "semester": "4th",
+    "program": "BE-CSE",
+    "group": "G-14"
+  },
+  {
+    "firstName": "Kanish",
+    "lastName": "Mahajan",
+    "email": "kanish@faculty.com",
+    "password": "kanish123",
+    "role": "teacher",
     "department": "cse",
     "designation": "assistant prof"
   }

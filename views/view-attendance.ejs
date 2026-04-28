@@ -1,27 +1,70 @@
-<%- include("partials/header", { title: "View Attendance" }) %>
+<%- include("partials/header", { title: "My Attendance" }) %>
 
-  <div class="card">
-    <h1><i class="fa-solid fa-chart-simple"></i> Attendance Summary</h1>
-    <div class="mt-1">
-      <a href="/?email=<%= typeof email !== 'undefined' ? email : '' %>&role=<%= typeof role !== 'undefined' ? role : '' %>"
-        class="btn-secondary no-decoration"
-        style="padding: 0.5rem 1rem; font-size: 0.9rem; display: inline-block; margin-bottom: 1rem;">
-        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
-      </a>
+<div class="card max-w-1000 mt-2">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f4f7f6; padding-bottom: 1rem;">
+        <div>
+            <h1><i class="fa-solid fa-chart-pie accent-text"></i> My Attendance Report</h1>
+            <p>Tracking for Group: <strong><%= user.group %></strong></p>
+        </div>
+        <div style="text-align: right;">
+            <span style="font-size: 0.9rem; color: #888;">Current Semester: <%= user.semester || 'N/A' %></span>
+        </div>
     </div>
-    <div class="text-center" style="padding: 3rem 1rem;">
-      <i class="fa-solid fa-person-digging" style="font-size: 4rem; color: var(--accent); margin-bottom: 1.5rem;"></i>
-      <h2 style="font-size: 2rem; margin-bottom: 1rem;">Reports Module Coming Soon</h2>
-      <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 400px; margin: 0 auto 2rem;">
-        Detailed analytics and attendance visualizers are currently being integrated into your dashboard.
-      </p>
-      <div
-        style="background: rgba(219, 244, 140, 0.1); border: 2px dashed var(--accent); padding: 1.5rem; display: inline-block;">
-        <p style="font-weight: 600; color: var(--secondary); margin: 0;">
-          <i class="fa-solid fa-calendar-plus"></i> This module will be available in future evaluations.
-        </p>
-      </div>
-    </div>
-  </div>
 
-  <%- include("partials/footer") %>
+    <div class="mt-2">
+        <% if (report.length === 0) { %>
+            <div style="text-align: center; padding: 4rem; background: #fafafa; border-radius: 15px; border: 2px dashed #eee;">
+                <i class="fa-solid fa-calendar-minus" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                <p style="color: #666; font-size: 1.1rem;">No attendance records found for your group yet.</p>
+            </div>
+        <% } else { %>
+            <div class="table-container">
+                <table style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
+                    <thead>
+                        <tr style="color: #888; font-size: 0.9rem; text-transform: uppercase;">
+                            <th style="padding: 1rem; text-align: left;">Subject</th>
+                            <th style="padding: 1rem; text-align: left;">Faculty</th>
+                            <th style="padding: 1rem; text-align: center;">Present / Total</th>
+                            <th style="padding: 1rem; text-align: center;">Status</th>
+                            <th style="padding: 1rem; text-align: right;">Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% report.forEach(item => { %>
+                            <tr style="background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-radius: 10px;">
+                                <td style="padding: 1.2rem; border-radius: 10px 0 0 10px;">
+                                    <strong style="color: var(--primary-color);"><%= item.name %></strong>
+                                    <div style="font-size: 0.8rem; color: #999;"><%= item.code %></div>
+                                </td>
+                                <td style="padding: 1.2rem; color: #666;"><%= item.faculty %></td>
+                                <td style="padding: 1.2rem; text-align: center;">
+                                    <span style="background: #f0f4f8; padding: 0.4rem 0.8rem; border-radius: 20px; font-weight: 600; color: #2c3e50;">
+                                        <%= item.present %> / <%= item.total %>
+                                    </span>
+                                </td>
+                                <td style="padding: 1.2rem; text-align: center;">
+                                    <% if (parseFloat(item.percentage) < 75) { %>
+                                        <span style="color: #e74c3c; background: #fdf2f2; padding: 0.3rem 0.6rem; border-radius: 5px; font-size: 0.85rem; font-weight: 500;">
+                                            <i class="fa-solid fa-triangle-exclamation"></i> Shortage
+                                        </span>
+                                    <% } else { %>
+                                        <span style="color: #27ae60; background: #f2f9f5; padding: 0.3rem 0.6rem; border-radius: 5px; font-size: 0.85rem; font-weight: 500;">
+                                            <i class="fa-solid fa-circle-check"></i> Safe
+                                        </span>
+                                    <% } %>
+                                </td>
+                                <td style="padding: 1.2rem; text-align: right; border-radius: 0 10px 10px 0;">
+                                    <strong style="font-size: 1.2rem; color: <%= parseFloat(item.percentage) < 75 ? '#e74c3c' : '#27ae60' %>;">
+                                        <%= item.percentage %>%
+                                    </strong>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include("partials/footer") %>

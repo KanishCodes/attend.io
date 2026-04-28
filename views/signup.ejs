@@ -4,7 +4,7 @@
     <h1><i class="fa-solid fa-user-plus accent-text" style="padding: 0.5rem;"></i><br>Sign Up</h1>
     <p style="font-weight: 500;">Join our portal to start tracking attendance.</p>
 
-    <form action="/signup" method="POST" class="mt-1" onsubmit="return validatePasswords()">
+    <form action="/signup" method="POST" enctype="multipart/form-data" class="mt-1" onsubmit="return validatePasswords()">
       <div class="flex-gap">
         <div class="form-group flex-1">
           <label for="firstName">First Name<span class="required-star">*</span></label>
@@ -35,6 +35,11 @@
         </select>
       </div>
 
+      <div class="form-group">
+        <label for="profilePic">Profile Picture (Recommended)</label>
+        <input type="file" id="profilePic" name="profilePic" accept="image/*">
+      </div>
+
       <!-- Student Fields -->
       <div id="student-fields">
         <div class="form-group">
@@ -50,8 +55,12 @@
           <input type="text" name="program" placeholder="e.g. B.Tech CSE">
         </div>
         <div class="form-group">
-          <label for="group">Group</label>
-          <input type="text" name="group" placeholder="e.g. G1">
+          <label for="group">Group<span class="required-star">*</span></label>
+          <select name="group" id="group">
+            <option value="G-14">G-14</option>
+            <option value="G-15">G-15</option>
+            <option value="G-16">G-16</option>
+          </select>
         </div>
       </div>
 
@@ -68,6 +77,16 @@
       </div>
 
       <button type="submit">Create Account <i class="fa-solid fa-check"></i></button>
+
+      <div style="text-align: center; margin: 1.5rem 0; position: relative;">
+        <hr style="border: 0; border-top: 1px solid #ddd;">
+        <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #fff; padding: 0 10px; color: #888; font-size: 0.9rem;">OR</span>
+      </div>
+
+      <a href="/auth/google" style="display: flex; align-items: center; justify-content: center; text-decoration: none; background: #fff; color: #444; border: 1px solid #ddd; padding: 0.8rem; border-radius: 8px; font-weight: 500; transition: background 0.3s;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" style="width: 18px; margin-right: 10px;">
+        Continue with Google
+      </a>
     </form>
 
     <script>

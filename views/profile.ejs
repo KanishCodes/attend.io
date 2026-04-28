@@ -1,76 +1,58 @@
 <%- include("partials/header", { title: "My Profile" }) %>
 
-  <div class="card">
-    <h1><i class="fa-solid fa-id-card accent-text"></i> My Profile</h1>
-    <p>Your official portal details and academic information.</p>
+<div class="card max-w-800 mt-2">
+    <div style="display: flex; gap: 2rem; align-items: center; border-bottom: 2px solid #f4f7f6; padding-bottom: 2rem; flex-wrap: wrap;">
+        <!-- Profile Picture Section -->
+        <div style="flex: 0 0 150px;">
+            <img src="<%= userDetails.profilePic || '/uploads/default-avatar.png' %>" 
+                 alt="Profile Picture" 
+                 style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-color); box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        </div>
 
-    <div class="profile-info">
-      <div class="info-item">
-        <label>Full Name</label>
-        <span>
-          <%= userDetails.firstName %>
-            <%= userDetails.lastName %>
-        </span>
-      </div>
-      <div class="info-item">
-        <label>Email Address</label>
-        <span>
-          <%= email %>
-        </span>
-      </div>
-      <div class="info-item">
-        <label>Role</label>
-        <span style="text-transform: capitalize;">
-          <%= role %>
-        </span>
-      </div>
+        <div style="flex: 1;">
+            <h1 style="margin: 0;"><%= fullName %></h1>
+            <p style="text-transform: capitalize; font-weight: 600; color: #888;">
+                <i class="fa-solid fa-user-tag accent-text"></i> <%= role %>
+            </p>
+            <p style="color: #666;"><i class="fa-solid fa-envelope accent-text"></i> <%= userDetails.email %></p>
+        </div>
+    </div>
 
-      <% if (role==='student' ) { %>
-        <div class="info-item">
-          <label>Batch</label>
-          <span>
-            <%= userDetails.batch || 'Not set' %>
-          </span>
-        </div>
-        <div class="info-item">
-          <label>Semester</label>
-          <span>
-            <%= userDetails.semester || 'Not set' %>
-          </span>
-        </div>
-        <div class="info-item">
-          <label>Program</label>
-          <span>
-            <%= userDetails.program || 'Not set' %>
-          </span>
-        </div>
-        <div class="info-item">
-          <label>Group</label>
-          <span>
-            <%= userDetails.group || 'Not set' %>
-          </span>
-        </div>
-        <% } else if (role==='teacher' ) { %>
-          <div class="info-item">
-            <label>Department</label>
-            <span>
-              <%= userDetails.department || 'Not set' %>
-            </span>
-          </div>
-          <div class="info-item">
-            <label>Designation</label>
-            <span>
-              <%= userDetails.designation || 'Not set' %>
-            </span>
-          </div>
-          <% } %>
+    <div class="profile-info mt-2" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+        <% if (role === 'student') { %>
+            <div class="info-item" style="background: #fcfcfc; padding: 1rem; border-radius: 8px; border: 1px solid #eee;">
+                <label style="display: block; font-size: 0.8rem; color: #999; text-transform: uppercase;">Batch</label>
+                <strong style="font-size: 1.1rem;"><%= userDetails.batch || 'Not set' %></strong>
+            </div>
+            <div class="info-item" style="background: #fcfcfc; padding: 1rem; border-radius: 8px; border: 1px solid #eee;">
+                <label style="display: block; font-size: 0.8rem; color: #999; text-transform: uppercase;">Semester</label>
+                <strong style="font-size: 1.1rem;"><%= userDetails.semester || 'Not set' %></strong>
+            </div>
+            <div class="info-item" style="background: #fcfcfc; padding: 1rem; border-radius: 8px; border: 1px solid #eee;">
+                <label style="display: block; font-size: 0.8rem; color: #999; text-transform: uppercase;">Program</label>
+                <strong style="font-size: 1.1rem;"><%= userDetails.program || 'Not set' %></strong>
+            </div>
+            <div class="info-item" style="background: #fcfcfc; padding: 1rem; border-radius: 8px; border: 1px solid #eee;">
+                <label style="display: block; font-size: 0.8rem; color: #999; text-transform: uppercase;">Group</label>
+                <strong style="font-size: 1.1rem;"><%= userDetails.group || 'Not set' %></strong>
+            </div>
+        <% } else if (role === 'teacher') { %>
+            <div class="info-item" style="background: #fcfcfc; padding: 1rem; border-radius: 8px; border: 1px solid #eee;">
+                <label style="display: block; font-size: 0.8rem; color: #999; text-transform: uppercase;">Department</label>
+                <strong style="font-size: 1.1rem;"><%= userDetails.department || 'Not set' %></strong>
+            </div>
+            <div class="info-item" style="background: #fcfcfc; padding: 1rem; border-radius: 8px; border: 1px solid #eee;">
+                <label style="display: block; font-size: 0.8rem; color: #999; text-transform: uppercase;">Designation</label>
+                <strong style="font-size: 1.1rem;"><%= userDetails.designation || 'Not set' %></strong>
+            </div>
+        <% } %>
     </div>
 
     <div class="mt-2 text-center">
-      <a href="/?email=<%= email %>&role=<%= role %>" class="no-decoration">
-        <button class="btn-secondary" style="width: auto; padding: 0.8rem 2rem;">Return to Dashboard</button>
-      </a>
+        <a href="/" class="btn" style="text-decoration: none; padding: 0.8rem 2.5rem; display: inline-block;">
+            <i class="fa-solid fa-house"></i> Return to Dashboard
+        </a>
     </div>
-  </div>
+</div>
 
-  <%- include("partials/footer") %>
+<%- include("partials/footer") %>
