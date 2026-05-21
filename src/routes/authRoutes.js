@@ -19,8 +19,10 @@ router.get('/auth/google/callback',
         // Generate our JWT token for the Google User
         generateToken(res, req.user._id);
         
-        // Redirect based on role
-        if (req.user.role === 'teacher') {
+        // Redirect based on role or setup needs
+        if (req.user.needsProfileSetup) {
+            res.redirect('/complete-profile');
+        } else if (req.user.role === 'teacher') {
             res.redirect('/mark-attendance');
         } else {
             res.redirect('/view-attendance');

@@ -1,59 +1,55 @@
-<%- include("partials/header", { title: "Contact Us" }) %>
+<%- include("partials/header", { title: "Contact Us", user: typeof user !== 'undefined' ? user : null }) %>
 
-<div class="card">
-    <h1 class="accent-text text-center">Contact Us</h1>
-    <p class="text-center mt-1">Have questions or need support? Our team is here to help you get the most out of attend.io.</p>
-    
-    <div class="flex-gap mt-2">
-        <div style="flex: 1; min-width: 300px;">
-            <h3>Get in Touch</h3>
-            <ul style="list-style: none; padding: 0; margin-top: 1rem;">
-                <li style="margin-bottom: 1rem;">
-                    <i class="fa-solid fa-envelope accent-text" style="width: 25px;"></i> 
-                    <strong>Email:</strong> support@attend.io
-                </li>
-                <li style="margin-bottom: 1rem;">
-                    <i class="fa-solid fa-phone accent-text" style="width: 25px;"></i> 
-                    <strong>Phone:</strong> +91 (555) 123-4567
-                </li>
-                <li style="margin-bottom: 1rem;">
-                    <i class="fa-solid fa-location-dot accent-text" style="width: 25px;"></i> 
-                    <strong>Location:</strong> University Campus, Block A, Innovation Center
-                </li>
-            </ul>
-            
-            <div class="mt-2">
-                <h4>Hours of Operation</h4>
-                <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 2:00 PM</p>
+<div class="card max-w-800 mt-2">
+    <div style="text-align: center; border-bottom: 2px solid #f4f7f6; padding-bottom: 2rem; margin-bottom: 3rem;">
+        <h1><i class="fa-solid fa-headset accent-text"></i> Contact Support</h1>
+        <p>We're here to help you with any questions about your attendance records.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; text-align: center;">
+        <!-- Location Card -->
+        <div style="background: var(--secondary); padding: 2rem; border-radius: 20px; border: 1px solid #eee; transition: transform 0.3s;">
+            <div style="background: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <i class="fa-solid fa-location-dot accent-text" style="font-size: 1.5rem;"></i>
             </div>
+            <h3 style="margin-bottom: 0.5rem;">Visit Us</h3>
+            <p style="color: #666; font-size: 0.9rem; line-height: 1.6;">
+                Campus Drive, Tech Block 4<br>
+                University Center, 110022<br>
+                New Delhi, India
+            </p>
         </div>
 
-        <div style="flex: 1.5; min-width: 300px;">
-            <div class="card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
-                <h3 class="accent-text">Frequently Asked Questions</h3>
-                <div class="mt-1">
-                    <p><strong>How do I reset my password?</strong><br>
-                    Please contact the University IT Helpdesk at help@univ.edu with your Student ID.</p>
-                </div>
-                <div class="mt-1">
-                    <p><strong>Can I change my role once signed up?</strong><br>
-                    Roles are locked after signup for security. Email the admin if you picked the wrong role.</p>
-                </div>
-                <div class="mt-1">
-                    <p><strong>System Downtime?</strong><br>
-                    Scheduled maintenance occurs every Sunday from 2 AM to 4 AM IST.</p>
-                </div>
-                
-                <div class="mt-2 text-center" style="padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <p><i class="fa-solid fa-headset accent-text"></i> Support is available 24/7 for urgent campus-wide issues.</p>
-                </div>
+        <!-- Phone Card -->
+        <div style="background: var(--accent-pink); padding: 2rem; border-radius: 20px; border: 1px solid #eee; transition: transform 0.3s;">
+            <div style="background: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <i class="fa-solid fa-phone accent-text" style="font-size: 1.5rem;"></i>
             </div>
+            <h3 style="margin-bottom: 0.5rem;">Call Us</h3>
+            <p style="color: #666; font-size: 0.9rem; line-height: 1.6;">
+                Support: +91 1800-ATTEND<br>
+                Office: +91 011-2345-6789<br>
+                Mon - Fri, 9am - 5pm
+            </p>
+        </div>
+
+        <!-- Email Card -->
+        <div style="background: var(--accent-green); padding: 2rem; border-radius: 20px; border: 1px solid #eee; transition: transform 0.3s;">
+            <div style="background: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <i class="fa-solid fa-envelope accent-text" style="font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin-bottom: 0.5rem;">Email Us</h3>
+            <p style="color: #666; font-size: 0.9rem; line-height: 1.6;">
+                General: support@attend.io<br>
+                Admin: contact@university.edu<br>
+                Response within 24hrs
+            </p>
         </div>
     </div>
-</div>
 
-<div class="text-center mt-2 mb-2">
-    <a href="/" class="no-decoration"><button class="btn-secondary">Back to Home</button></a>
+    <div class="mt-2 text-center" style="margin-top: 4rem; opacity: 0.7;">
+        <p style="font-size: 0.85rem; color: #888;">&copy; 2026 attend.io | Empowering Education</p>
+    </div>
 </div>
 
 <%- include("partials/footer") %>

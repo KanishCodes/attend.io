@@ -33,9 +33,11 @@
                         <% if (user.role === 'teacher') { %>
                             <a href="/manage-subjects"><i class="fa-solid fa-book"></i> Subjects</a>
                             <a href="/mark-attendance"><i class="fa-solid fa-clipboard-check"></i> Mark Attendance</a>
+                            <a href="/teacher-report"><i class="fa-solid fa-chart-simple"></i> View Report</a>
                         <% } else { %>
                             <a href="/view-attendance"><i class="fa-solid fa-chart-line"></i> My Attendance</a>
                         <% } %>
+                        <a href="/contact"><i class="fa-solid fa-headset"></i> Contact</a>
 
                         <span class="nav-welcome">
                             <i class="fa-solid fa-circle-user"></i> Welcome <strong><%= user.firstName %></strong>
@@ -45,6 +47,7 @@
                     <% } else { %>
                         <!-- Links for Guests -->
                         <a href="/about"><i class="fa-solid fa-info-circle"></i> About</a>
+                        <a href="/contact"><i class="fa-solid fa-headset"></i> Contact</a>
                         <a href="/signup"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
                         <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
                     <% } %>

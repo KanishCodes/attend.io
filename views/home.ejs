@@ -1,81 +1,71 @@
-<%- include("partials/header", { title: "Dashboard" }) %>
+<%- include("partials/header", { title: "attend.io - Smart Attendance" }) %>
 
-  <div class="card text-center">
-    <h1>AttendEase <span style="font-size: 1.5rem; opacity: 0.6; font-weight: 400;"> - Online Attendance Portal</span>
+<!-- Hero Section -->
+<div style="text-align: center; padding: 4rem 1rem; margin-bottom: 2rem;">
+    <h1 style="font-size: 3.5rem; font-weight: 800; letter-spacing: -0.05em; color: var(--text); margin-bottom: 1.5rem; line-height: 1.2;">
+        Attendance management,<br>
+        <span style="color: var(--primary);">reimagined for modern teams.</span>
     </h1>
+    <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.6;">
+        A lightning-fast, highly secure platform designed to streamline academic workflows for both faculty and students.
+    </p>
 
-    <% if (typeof email !=='undefined' && email) { %>
-      <div class="mt-2 text-center">
-        <h2>Welcome back, <span class="accent-text">
-            <%= typeof fullName !=='undefined' ? fullName : 'User' %>
-          </span>!</h2>
-        <p style="font-size: 1.1rem; font-weight: 600;">Your portal is active. Select an action below to proceed.</p>
-
-        <div class="portal-actions">
-          <% if (typeof role !=='undefined' && role==='teacher' ) { %>
-            <a href="/mark-attendance?email=<%= email %>&role=teacher" class="action-btn btn-teacher">
-              <i class="fa-solid fa-calendar-check"></i>
-              Mark Attendance
-            </a>
-            <% } %>
-
-              <% if (typeof role !=='undefined' && role==='student' ) { %>
-                <a href="/view-attendance?email=<%= email %>&role=student" class="action-btn btn-student">
-                  <i class="fa-solid fa-chart-line"></i>
-                  View Reports
-                </a>
+    <% if (typeof user !== 'undefined' && user._id) { %>
+        <div style="background: white; padding: 2rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); max-width: 600px; margin: 0 auto;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Welcome back, <%= user.firstName %>!</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">You are logged in as a <strong><%= user.role %></strong>.</p>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <% if (user.role === 'teacher') { %>
+                    <a href="/manage-subjects" class="btn btn-secondary no-decoration">Manage Subjects</a>
+                    <a href="/mark-attendance" class="btn no-decoration"><i class="fa-solid fa-clipboard-check"></i> Mark Attendance</a>
+                <% } else { %>
+                    <a href="/view-attendance" class="btn no-decoration"><i class="fa-solid fa-chart-pie"></i> View My Report</a>
                 <% } %>
+            </div>
         </div>
-      </div>
-      <% } else { %>
-        <div class="mt-2 text-center">
-          <p>Welcome to our next-generation attendance management system. Designed to streamline academic workflows,
-            this portal provides a sophisticated, high-contrast interface for real-time tracking and reporting across
-            institutions.</p>
-          <div class="flex-gap mt-2">
-            <a href="/signup" class="flex-1 no-decoration"><button class="btn-secondary">Create Account</button></a>
-            <a href="/login" class="flex-1 no-decoration"><button>Sign In</button></a>
-          </div>
+    <% } else { %>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+            <a href="/signup" class="btn no-decoration" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Get Started Free</a>
+            <a href="/login" class="btn btn-secondary no-decoration" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Sign In</a>
         </div>
-        <% } %>
-  </div>
+    <% } %>
+</div>
 
-  <!-- Additional Informational Sections -->
-  <div class="flex-gap mt-2">
-    <div class="card flex-1">
-      <h3 class="accent-text"><i class="fa-solid fa-microchip"></i> Modern Architecture</h3>
-      <p>Built with Express.js and EJS, the portal features a robust design with centralized error handling and
-        resilient file-based storage.</p>
+<!-- Features Section -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 4rem;">
+    <div style="background: var(--secondary); padding: 2rem; border-radius: 24px; border: none; box-shadow: none; transition: transform 0.2s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="margin-bottom: 1.5rem;">
+            <i class="fa-solid fa-bolt" style="color: var(--text); font-size: 2rem;"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--text);">Lightning Fast</h3>
+        <p style="color: var(--text); opacity: 0.8; font-size: 0.95rem;">Built on Express.js and MongoDB, enjoy real-time updates and zero-latency page loads for seamless classroom management.</p>
     </div>
-    <div class="card flex-1">
-      <h3 class="accent-text"><i class="fa-solid fa-shield-halved"></i> Role-Based Access</h3>
-      <p>Customized portals for both Teachers and Students ensure that data remains secure and relevant to your academic
-        standing.</p>
+
+    <div style="background: var(--accent-pink); padding: 2rem; border-radius: 24px; border: none; box-shadow: none; transition: transform 0.2s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="margin-bottom: 1.5rem;">
+            <i class="fa-solid fa-shield-halved" style="color: var(--text); font-size: 2rem;"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--text);">Enterprise Security</h3>
+        <p style="color: var(--text); opacity: 0.8; font-size: 0.95rem;">Protected by HTTP-only JWT cookies and Google OAuth 2.0 integration, ensuring your institutional data remains strictly confidential.</p>
     </div>
-  </div>
 
-  <div class="card mt-2">
-    <h2 class="text-center">How It Works</h2>
-    <div class="flex-gap mt-1" style="flex-wrap: wrap;">
-      <div style="flex: 1; min-width: 250px; padding: 1rem;">
-        <h4><span class="accent-text">01.</span> Account Setup</h4>
-        <p>Sign up as a Student or Teacher and provide your academic details to personalize your portal experience.</p>
-      </div>
-      <div style="flex: 1; min-width: 250px; padding: 1rem;">
-        <h4><span class="accent-text">02.</span> Identity Verification</h4>
-        <p>The system uses your University Email and First/Last name for all identification, ensuring high professional
-          standards.</p>
-      </div>
-      <div style="flex: 1; min-width: 250px; padding: 1rem;">
-        <h4><span class="accent-text">03.</span> Track Progress</h4>
-        <p>Teachers can mark real-time attendance, while students gain immediate access to their session reports and
-          history.</p>
-      </div>
+    <div style="background: var(--accent-blue); padding: 2rem; border-radius: 24px; border: none; box-shadow: none; transition: transform 0.2s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="margin-bottom: 1.5rem;">
+            <i class="fa-solid fa-chart-simple" style="color: var(--text); font-size: 2rem;"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--text);">Smart Analytics</h3>
+        <p style="color: var(--text); opacity: 0.8; font-size: 0.95rem;">Automated attendance percentage calculations with dynamic shortage warnings, giving students instant clarity on their standing.</p>
     </div>
-  </div>
+</div>
 
-  <div class="text-center mt-2 mb-2" style="opacity: 0.7; font-size: 0.9rem;">
-    <p><strong>attend.io v1.0</strong><br>&copy; 2026 attend.io Solutions</p>
-  </div>
+<!-- Bottom CTA -->
+<% if (!user || !user._id) { %>
+    <div style="text-align: center; margin: 5rem 0 2rem; background: var(--primary); padding: 4rem 2rem; border-radius: 24px; color: white;">
+        <h2 style="color: white; font-size: 2rem; margin-bottom: 1rem;">Ready to upgrade your classroom?</h2>
+        <p style="color: #E0E7FF; font-size: 1.1rem; margin-bottom: 2rem;">Join the platform that takes the hassle out of attendance tracking.</p>
+        <a href="/signup" class="btn" style="background: white; color: var(--primary); padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 30px; text-decoration: none;">Create Free Account</a>
+    </div>
+<% } %>
 
-  <%- include("partials/footer") %>
+<%- include("partials/footer") %>

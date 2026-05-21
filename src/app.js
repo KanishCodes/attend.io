@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -11,7 +11,12 @@ const session = require('express-session');
 const passport = require('passport');
 const connectDB = require('./config/db');
 
-// Load Passport Config
+/**
+ * ATTEND.IO - MVC Architecture
+ * Separating code into Models, Views, and Controllers for better organization.
+ */
+
+// Load Passport configuration for Google OAuth
 require('./config/passport')(passport);
 
 const app = express();

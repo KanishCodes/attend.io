@@ -1,60 +1,74 @@
-<%- include("partials/header", { title: "My Attendance" }) %>
+<%- include("partials/header", { title: "My Attendance", user: user }) %>
 
 <div class="card max-w-1000 mt-2">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f4f7f6; padding-bottom: 1rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f4f7f6; padding-bottom: 1.5rem;">
         <div>
             <h1><i class="fa-solid fa-chart-pie accent-text"></i> My Attendance Report</h1>
             <p>Tracking for Group: <strong><%= user.group %></strong></p>
         </div>
         <div style="text-align: right;">
-            <span style="font-size: 0.9rem; color: #888;">Current Semester: <%= user.semester || 'N/A' %></span>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Current Semester: <%= user.semester || 'N/A' %></span>
         </div>
     </div>
 
     <div class="mt-2">
         <% if (report.length === 0) { %>
-            <div style="text-align: center; padding: 4rem; background: #fafafa; border-radius: 15px; border: 2px dashed #eee;">
-                <i class="fa-solid fa-calendar-minus" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <div style="text-align: center; padding: 4rem; background: #fafafa; border-radius: 20px; border: 2px dashed #eee;">
+                <i class="fa-solid fa-calendar-minus" style="font-size: 3rem; color: #ccc; margin-bottom: 1.5rem;"></i>
                 <p style="color: #666; font-size: 1.1rem;">No attendance records found for your group yet.</p>
             </div>
         <% } else { %>
-            <div class="table-container">
-                <table style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
+            <div style="margin-bottom: 1.5rem; display: flex; justify-content: flex-end;">
+                <div style="position: relative; width: 100%; max-width: 300px;">
+                    <i class="fa-solid fa-filter" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #94A3B8; pointer-events: none;"></i>
+                    <select id="subjectDropdownFilter" style="padding-left: 2.5rem; border-radius: 12px; cursor: pointer; border: 1px solid var(--border);">
+                        <option value="all">All Subjects</option>
+                        <% report.forEach(item => { %>
+                            <option value="<%= item.name.toLowerCase() %>"><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-container" style="border: none; box-shadow: none; background: transparent;">
+                <table style="width: 100%; border-collapse: separate; border-spacing: 0 15px;">
                     <thead>
-                        <tr style="color: #888; font-size: 0.9rem; text-transform: uppercase;">
-                            <th style="padding: 1rem; text-align: left;">Subject</th>
-                            <th style="padding: 1rem; text-align: left;">Faculty</th>
-                            <th style="padding: 1rem; text-align: center;">Present / Total</th>
-                            <th style="padding: 1rem; text-align: center;">Status</th>
-                            <th style="padding: 1rem; text-align: right;">Percentage</th>
+                        <tr style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            <th style="padding: 0 1.5rem;">Subject</th>
+                            <th style="padding: 0 1.5rem; text-align: center;">Present / Total</th>
+                            <th style="padding: 0 1.5rem; text-align: center;">Status</th>
+                            <th style="padding: 0 1.5rem; text-align: right;">Percentage</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% report.forEach(item => { %>
-                            <tr style="background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-radius: 10px;">
-                                <td style="padding: 1.2rem; border-radius: 10px 0 0 10px;">
-                                    <strong style="color: var(--primary-color);"><%= item.name %></strong>
-                                    <div style="font-size: 0.8rem; color: #999;"><%= item.code %></div>
+                        <% 
+                            const pastelColors = ['var(--secondary)', 'var(--accent-pink)', 'var(--accent-green)', 'var(--accent-blue)'];
+                            report.forEach((item, index) => { 
+                                const rowColor = pastelColors[index % pastelColors.length];
+                        %>
+                            <tr class="subject-row" data-subject="<%= item.name.toLowerCase() %>" style="background: <%= rowColor %>; border-radius: 20px;">
+                                <td style="padding: 1.5rem; border-radius: 20px 0 0 20px;">
+                                    <strong style="color: var(--text); font-size: 1.1rem; display: block;"><%= item.name %></strong>
+                                    <span style="font-size: 0.8rem; color: var(--text); opacity: 0.6;"><%= item.code %> • <%= item.faculty %></span>
                                 </td>
-                                <td style="padding: 1.2rem; color: #666;"><%= item.faculty %></td>
-                                <td style="padding: 1.2rem; text-align: center;">
-                                    <span style="background: #f0f4f8; padding: 0.4rem 0.8rem; border-radius: 20px; font-weight: 600; color: #2c3e50;">
+                                <td style="padding: 1.5rem; text-align: center;">
+                                    <span style="background: rgba(255,255,255,0.4); padding: 0.5rem 1rem; border-radius: 12px; font-weight: 700; color: var(--text);">
                                         <%= item.present %> / <%= item.total %>
                                     </span>
                                 </td>
-                                <td style="padding: 1.2rem; text-align: center;">
+                                <td style="padding: 1.5rem; text-align: center;">
                                     <% if (parseFloat(item.percentage) < 75) { %>
-                                        <span style="color: #e74c3c; background: #fdf2f2; padding: 0.3rem 0.6rem; border-radius: 5px; font-size: 0.85rem; font-weight: 500;">
-                                            <i class="fa-solid fa-triangle-exclamation"></i> Shortage
+                                        <span style="color: #fff; background: #e74c3c; padding: 0.4rem 0.8rem; border-radius: 10px; font-size: 0.8rem; font-weight: 600;">
+                                            Shortage
                                         </span>
                                     <% } else { %>
-                                        <span style="color: #27ae60; background: #f2f9f5; padding: 0.3rem 0.6rem; border-radius: 5px; font-size: 0.85rem; font-weight: 500;">
-                                            <i class="fa-solid fa-circle-check"></i> Safe
+                                        <span style="color: var(--text); background: rgba(255,255,255,0.4); padding: 0.4rem 0.8rem; border-radius: 10px; font-size: 0.8rem; font-weight: 600;">
+                                            Safe
                                         </span>
                                     <% } %>
                                 </td>
-                                <td style="padding: 1.2rem; text-align: right; border-radius: 0 10px 10px 0;">
-                                    <strong style="font-size: 1.2rem; color: <%= parseFloat(item.percentage) < 75 ? '#e74c3c' : '#27ae60' %>;">
+                                <td style="padding: 1.5rem; text-align: right; border-radius: 0 20px 20px 0;">
+                                    <strong style="font-size: 1.5rem; color: <%= parseFloat(item.percentage) < 75 ? '#e74c3c' : 'var(--text)' %>;">
                                         <%= item.percentage %>%
                                     </strong>
                                 </td>
@@ -66,5 +80,27 @@
         <% } %>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Dropdown filtering logic
+        const filterDropdown = document.getElementById('subjectDropdownFilter');
+        if (filterDropdown) {
+            filterDropdown.addEventListener('change', function() {
+                const selectedValue = this.value;
+                const rows = document.querySelectorAll('.subject-row');
+                
+                rows.forEach(row => {
+                    const subj = row.getAttribute('data-subject');
+                    if (selectedValue === 'all' || subj === selectedValue) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        }
+    });
+</script>
 
 <%- include("partials/footer") %>

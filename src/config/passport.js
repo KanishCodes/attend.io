@@ -15,7 +15,8 @@ module.exports = function(passport) {
             email: profile.emails[0].value,
             profilePic: profile.photos[0].value,
             role: 'student', // Default role for Google signup
-            group: 'G-14' // Default group to pass student schema validation
+            group: 'G-14', // Default group to pass student schema validation
+            needsProfileSetup: true
         };
 
         try {

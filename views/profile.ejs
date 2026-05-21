@@ -48,6 +48,20 @@
         <% } %>
     </div>
 
+    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #f4f7f6;">
+        <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-camera accent-text"></i> Update Profile Picture</h3>
+        <form action="/profile/update-picture" method="POST" enctype="multipart/form-data" style="display: flex; gap: 1rem; align-items: center; background: #fcfcfc; padding: 1.5rem; border-radius: 12px; border: 1px solid #eee;">
+            <div style="flex: 1;">
+                <input type="file" name="profilePic" accept="image/*" required 
+                       style="width: 100%; padding: 0.5rem; border: 1px dashed #ccc; border-radius: 8px; background: #fff;">
+                <p style="font-size: 0.75rem; color: #888; margin-top: 0.5rem; margin-bottom: 0;">JPG, PNG or GIF. Max size 5MB.</p>
+            </div>
+            <button type="submit" class="btn" style="padding: 0.8rem 1.5rem; white-space: nowrap;">
+                Upload New Image
+            </button>
+        </form>
+    </div>
+
     <div class="mt-2 text-center">
         <a href="/" class="btn" style="text-decoration: none; padding: 0.8rem 2.5rem; display: inline-block;">
             <i class="fa-solid fa-house"></i> Return to Dashboard

@@ -43,20 +43,20 @@
       <!-- Student Fields -->
       <div id="student-fields">
         <div class="form-group">
-          <label for="batch">Batch</label>
-          <input type="text" name="batch" placeholder="e.g. 2022-2026">
+          <label for="batch">Batch<span class="required-star">*</span></label>
+          <input type="text" id="batch" name="batch" placeholder="e.g. 2022-2026" required>
         </div>
         <div class="form-group">
-          <label for="semester">Semester</label>
-          <input type="text" name="semester" placeholder="e.g. 4th">
+          <label for="semester">Semester<span class="required-star">*</span></label>
+          <input type="text" id="semester" name="semester" placeholder="e.g. 4th" required>
         </div>
         <div class="form-group">
-          <label for="program">Program</label>
-          <input type="text" name="program" placeholder="e.g. B.Tech CSE">
+          <label for="program">Program<span class="required-star">*</span></label>
+          <input type="text" id="program" name="program" placeholder="e.g. B.Tech CSE" required>
         </div>
         <div class="form-group">
           <label for="group">Group<span class="required-star">*</span></label>
-          <select name="group" id="group">
+          <select name="group" id="group" required>
             <option value="G-14">G-14</option>
             <option value="G-15">G-15</option>
             <option value="G-16">G-16</option>
@@ -67,12 +67,12 @@
       <!-- Teacher Fields -->
       <div id="teacher-fields" style="display: none;">
         <div class="form-group">
-          <label for="department">Department</label>
-          <input type="text" name="department" placeholder="e.g. Computer Science">
+          <label for="department">Department<span class="required-star">*</span></label>
+          <input type="text" id="department" name="department" placeholder="e.g. Computer Science">
         </div>
         <div class="form-group">
-          <label for="designation">Designation</label>
-          <input type="text" name="designation" placeholder="e.g. Assistant Professor">
+          <label for="designation">Designation<span class="required-star">*</span></label>
+          <input type="text" id="designation" name="designation" placeholder="e.g. Assistant Professor">
         </div>
       </div>
 
@@ -104,13 +104,40 @@
         const role = document.getElementById('role').value;
         const studentFields = document.getElementById('student-fields');
         const teacherFields = document.getElementById('teacher-fields');
+        
+        // Student Inputs
+        const batch = document.getElementById('batch');
+        const semester = document.getElementById('semester');
+        const program = document.getElementById('program');
+        
+        // Teacher Inputs
+        const department = document.getElementById('department');
+        const designation = document.getElementById('designation');
 
         if (role === 'student') {
           studentFields.style.display = 'block';
           teacherFields.style.display = 'none';
+          
+          // Require student fields
+          batch.setAttribute('required', 'required');
+          semester.setAttribute('required', 'required');
+          program.setAttribute('required', 'required');
+          
+          // Un-require teacher fields
+          department.removeAttribute('required');
+          designation.removeAttribute('required');
         } else {
           studentFields.style.display = 'none';
           teacherFields.style.display = 'block';
+          
+          // Un-require student fields
+          batch.removeAttribute('required');
+          semester.removeAttribute('required');
+          program.removeAttribute('required');
+          
+          // Require teacher fields
+          department.setAttribute('required', 'required');
+          designation.setAttribute('required', 'required');
         }
       }
     </script>

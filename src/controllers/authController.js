@@ -119,12 +119,79 @@ const loginUser = async (req, res) => {
     }
 };
 
-const logoutUser = (req, res) => {
+const logoutUser = (req, res, next) => {
+    // Clear JWT cookie
     res.cookie('jwt', '', {
         httpOnly: true,
         expires: new Date(0)
     });
-    res.redirect('/login');
+
+    // Clear Passport session
+    if (req.logout) {
+        req.logout((err) => {
+            if (err) { return next(err); }
+            res.redirect('/login');
+        });
+    } else {
+        res.redirect('/login');
+    }
 };
 
-module.exports = { registerUser, loginUser, logoutUser };
+const postCompleteProfile = async (req, res) => {
+    try {
+        const { role, batch, semester, program, group, department, designation } = req.body;
+        
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            return res.status(404).render('auth-error', { message: "User not found.", linkText: "Go Back", linkUrl: "/login" });
+        }
+
+        user.role = role;
+        if (req.file) {
+            user.profilePic = `/uploads/${req.file.filename}`;
+        }
+        
+        if (role === 'student') {
+            user.batch = batch;
+            user.semester = semester;
+            user.program = program;
+            user.group = group;
+        } else {
+            user.department = department;
+            user.designation = designation;
+        }
+
+        user.needsProfileSetup = false;
+        await user.save();
+
+        res.redirect(role === 'teacher' ? '/mark-attendance' : '/view-attendance');
+    } catch (error) {
+        res.status(500).render('auth-error', { 
+            message: "Setup Error: " + error.message, 
+            linkText: "Try Again", 
+            linkUrl: "/complete-profile" 
+        });
+    }
+};
+
+const updateProfilePicture = async (req, res) => {
+    try {
+        if (!req.file) {
+            throw new Error("Please select an image to upload.");
+        }
+
+        const user = await User.findById(req.user._id);
+        user.profilePic = `/uploads/${req.file.filename}`;
+        await user.save();
+
+        res.redirect('/profile');
+    } catch (error) {
+        res.status(400).render('auth-error', { 
+            message: error.message, 
+            linkText: "Back to Profile", 
+            linkUrl: "/profile" 
+        });
+    }
+};
+
+module.exports = { registerUser, loginUser, logoutUser, postCompleteProfile, updateProfilePicture };

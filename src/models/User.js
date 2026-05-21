@@ -50,7 +50,11 @@ const userSchema = new mongoose.Schema({
     },
     // Teacher Specific
     department: String,
-    designation: String
+    designation: String,
+    needsProfileSetup: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps: true
 });
